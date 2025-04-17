@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shubham Electronics and Electricals - Repair Services in Khandwa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        .tool-animation {
+            position: absolute;
+            opacity: 0.7;
+            z-index: -1;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        
+        .circuit-animation {
+            position: absolute;
+            opacity: 0.5;
+            z-index: -1;
+            animation: flicker 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes flicker {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.7; }
+        }
+        
+        .parallax-bg {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transition: opacity 0.6s ease-out;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+        }
+        
+        .slide-up {
+            transform: translateY(50px);
+            opacity: 0;
+            transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+        }
+        
+        .slide-up.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .faq-item {
+            transition: all 0.3s ease;
+        }
+        
+        .faq-item:hover {
+            transform: translateX(5px);
+        }
+        
+        .map-container {
+            height: 400px;
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .service-card {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .cursor-effect {
+            position: fixed;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(59, 130, 246, 0.3);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            mix-blend-mode: multiply;
+        }
+        
+        @media (max-width: 768px) {
+            .parallax-bg {
+                background-attachment: scroll;
+            }
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-float a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background-color: #25D366;
+            color: white;
+            border-radius: 50%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-float a:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .whatsapp-float i {
+            font-size: 32px;
+        }
+
+        .whatsapp-float span {
+            position: absolute;
+            right: 70px;
+            background-color: #25D366;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .whatsapp-float:hover span {
+            opacity: 1;
+            right: 80px;
+        }
+
+        /* Electrical Circuit Background */
+        .circuit-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+            background-image: 
+                linear-gradient(90deg, transparent 0%, transparent 50%, #3b82f6 50%, #3b82f6 100%),
+                linear-gradient(0deg, transparent 0%, transparent 50%, #3b82f6 50%, #3b82f6 100%);
+            background-size: 50px 50px;
+            animation: circuitFlow 20s linear infinite;
+        }
+
+        @keyframes circuitFlow {
+            0% { background-position: 0 0; }
+            100% { background-position: 50px 50px; }
+        }
+
+        /* Circuit Nodes */
+        .circuit-node {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #3b82f6;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.5); opacity: 0.2; }
+            100% { transform: scale(1); opacity: 0.5; }
+        }
+
+        #map {
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="relative">
+    <!-- Electrical Circuit Background -->
+    <div class="circuit-bg"></div>
+    
+    <!-- Circuit Nodes -->
+    <div class="circuit-node" style="top: 10%; left: 20%;"></div>
+    <div class="circuit-node" style="top: 30%; left: 50%;"></div>
+    <div class="circuit-node" style="top: 70%; left: 30%;"></div>
+    <div class="circuit-node" style="top: 40%; left: 80%;"></div>
+    <div class="circuit-node" style="top: 80%; left: 60%;"></div>
+    
+    <!-- WhatsApp Float Button -->
+    <div class="whatsapp-float">
+        <a href="https://wa.me/919826099647" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-whatsapp"></i>
+            <span>Chat with us on WhatsApp</span>
+        </a>
+    </div>
+    
+    <!-- Cursor Effect -->
+    <div class="cursor-effect"></div>
+    
+    <!-- Floating Animation Elements -->
+    <img src="https://cdn-icons-png.flaticon.com/512/1055/1055683.png" class="tool-animation" style="width: 80px; top: 20%; left: 10%;" alt="Wrench">
+    <img src="https://cdn-icons-png.flaticon.com/512/3659/3659898.png" class="tool-animation" style="width: 60px; top: 30%; right: 15%; animation-delay: 0.5s;" alt="Screwdriver">
+    <img src="https://cdn-icons-png.flaticon.com/512/2933/2933245.png" class="circuit-animation" style="width: 100px; bottom: 20%; left: 20%;" alt="Circuit">
+    <img src="https://cdn-icons-png.flaticon.com/512/2933/2933245.png" class="circuit-animation" style="width: 120px; top: 25%; right: 20%; animation-delay: 1s;" alt="Circuit">
+    
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <i class="fas fa-tools text-blue-500 text-2xl mr-2"></i>
+                    <span class="text-xl font-bold text-gray-800">Shubham Electronics & Electricals</span>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="menu-toggle" class="text-gray-800 focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-blue-500 font-medium hover:text-blue-700 transition">Home</a>
+                    <a href="#about" class="text-gray-800 font-medium hover:text-blue-500 transition">About Us</a>
+                    <a href="#services" class="text-gray-800 font-medium hover:text-blue-500 transition">Our Work</a>
+                    <a href="#contact" class="text-gray-800 font-medium hover:text-blue-500 transition">Contact</a>
+                    <a href="#faq" class="text-gray-800 font-medium hover:text-blue-500 transition">FAQs</a>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4 pb-2">
+                <a href="#home" class="block py-2 px-4 text-sm hover:bg-blue-50 rounded transition">Home</a>
+                <a href="#about" class="block py-2 px-4 text-sm hover:bg-blue-50 rounded transition">About Us</a>
+                <a href="#services" class="block py-2 px-4 text-sm hover:bg-blue-50 rounded transition">Our Work</a>
+                <a href="#contact" class="block py-2 px-4 text-sm hover:bg-blue-50 rounded transition">Contact</a>
+                <a href="#faq" class="block py-2 px-4 text-sm hover:bg-blue-50 rounded transition">FAQs</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section id="home" class="parallax-bg bg-gradient-to-r from-blue-50 to-indigo-50 py-20 relative overflow-hidden">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0 slide-up">
+                    <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Expert Electronics & Electrical Repairs</h1>
+                    <p class="text-lg text-gray-600 mb-6">Trusted repair services in Khandwa since 1997. Fast, reliable, and affordable solutions for all your electronic and electrical needs.</p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#contact" class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-6 rounded-lg shadow-md transition flex items-center">
+                            <i class="fas fa-phone-alt mr-2"></i> Contact Us
+                        </a>
+                        <a href="#services" class="bg-white hover:bg-gray-100 text-blue-500 font-medium py-3 px-6 rounded-lg shadow-md transition flex items-center">
+                            <i class="fas fa-tools mr-2"></i> Our Services
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 slide-up" style="animation-delay: 0.2s;">
+                    <div class="relative">
+                        <img src="https://universalhire.co.uk/wp-content/uploads/2016/03/tool-repair.jpg" alt="Electronics Repair" class="rounded-xl shadow-xl w-full h-auto">
+                        <div class="absolute -bottom-5 -right-5 bg-white p-4 rounded-xl shadow-lg">
+                            <div class="flex items-center">
+                                <div class="bg-blue-100 p-3 rounded-full mr-3">
+                                    <i class="fas fa-check-circle text-blue-500 text-xl"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-gray-800">250+</p>
+                                    <p class="text-sm text-gray-600">Regular Customers</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">About Our Business</h2>
+                <div class="w-20 h-1 bg-blue-500 mx-auto mb-6"></div>
+                <p class="text-gray-600 max-w-2xl mx-auto">Established in 1997, we've been serving the Khandwa community with reliable electronics and electrical repair services for over two decades.</p>
+            </div>
+            
+            <div class="flex flex-col md:flex-row gap-12">
+                <div class="md:w-1/2 fade-in">
+                    <div class="bg-gray-50 p-8 rounded-xl shadow-sm">
+                        <div class="flex items-center mb-6">
+                            <div class="bg-blue-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-user-tie text-blue-500 text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-800">Rajkumar Tiwari</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Specializing in electrical appliance repairs with over 25 years of experience. Rajkumar has built a loyal customer base of more than 250 regular clients who trust his expertise and honest service.</p>
+                        <div class="flex items-center text-gray-500">
+                            <i class="fas fa-users mr-2"></i>
+                            <span>250+ Regular Customers</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2 fade-in" style="animation-delay: 0.2s;">
+                    <div class="bg-gray-50 p-8 rounded-xl shadow-sm">
+                        <div class="flex items-center mb-6">
+                            <div class="bg-blue-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-laptop-code text-blue-500 text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-800">Antim Tiwari</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Former trainer at Omega Computers, Khandwa, Antim brings specialized knowledge in electronic device repairs. His technical training background ensures your devices are in expert hands.</p>
+                        <div class="flex items-center text-gray-500">
+                            <i class="fas fa-graduation-cap mr-2"></i>
+                            <span>Ex-Trainer at Omega Computers</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Our Services</h2>
+                <div class="w-20 h-1 bg-blue-500 mx-auto mb-6"></div>
+                <p class="text-gray-600 max-w-2xl mx-auto">Comprehensive repair services with the convenience of home pickup and delivery for just ₹149.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="service-card bg-white p-8 rounded-xl fade-in">
+                    <div class="bg-blue-100 p-4 rounded-full w-16 h-16 flex items-center justify-center mb-6">
+                        <i class="fas fa-plug text-blue-500 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Electrical Appliance Repair</h3>
+                    <p class="text-gray-600 mb-4">Expert repair services for all home electrical appliances including refrigerators, washing machines, ACs, and more.</p>
+                    <div class="flex items-center text-blue-500 font-medium">
+                        <span>Handled by Rajkumar Tiwari</span>
+                    </div>
+                </div>
+                
+                <div class="service-card bg-white p-8 rounded-xl fade-in" style="animation-delay: 0.2s;">
+                    <div class="bg-blue-100 p-4 rounded-full w-16 h-16 flex items-center justify-center mb-6">
+                        <i class="fas fa-laptop text-blue-500 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Electronic Device Repair</h3>
+                    <p class="text-gray-600 mb-4">Professional repair services for laptops, computers, smartphones, TVs, and other electronic devices.</p>
+                    <div class="flex items-center text-blue-500 font-medium">
+                        <span>Handled by Antim Tiwari</span>
+                    </div>
+                </div>
+                
+                <div class="service-card bg-white p-8 rounded-xl fade-in" style="animation-delay: 0.4s;">
+                    <div class="bg-blue-100 p-4 rounded-full w-16 h-16 flex items-center justify-center mb-6">
+                        <i class="fas fa-truck text-blue-500 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Home Pickup & Delivery</h3>
+                    <p class="text-gray-600 mb-4">Convenient pickup and delivery service for your devices at a flat charge of just ₹149.</p>
+                    <div class="flex items-center text-blue-500 font-medium">
+                        <span>Available for all services</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Stats Section -->
+    <section class="py-16 bg-blue-500 text-white">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div class="fade-in">
+                    <div class="text-4xl font-bold mb-2">25+</div>
+                    <div class="text-sm uppercase tracking-wider">Years Experience</div>
+                </div>
+                <div class="fade-in" style="animation-delay: 0.2s;">
+                    <div class="text-4xl font-bold mb-2">250+</div>
+                    <div class="text-sm uppercase tracking-wider">Regular Customers</div>
+                </div>
+                <div class="fade-in" style="animation-delay: 0.4s;">
+                    <div class="text-4xl font-bold mb-2">7</div>
+                    <div class="text-sm uppercase tracking-wider">Days Open</div>
+                </div>
+                <div class="fade-in" style="animation-delay: 0.6s;">
+                    <div class="text-4xl font-bold mb-2">₹149</div>
+                    <div class="text-sm uppercase tracking-wider">Pickup/Delivery</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Contact Us</h2>
+                <div class="w-20 h-1 bg-blue-500 mx-auto mb-6"></div>
+                <p class="text-gray-600 max-w-2xl mx-auto">We're open every day from 8:00 AM to 10:00 PM. Reach out for any repair needs or inquiries.</p>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row gap-12">
+                <div class="lg:w-1/2 fade-in">
+                    <div class="bg-gray-50 p-8 rounded-xl shadow-sm h-full">
+                        <h3 class="text-xl font-bold text-gray-800 mb-6">Get in Touch</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="bg-blue-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-map-marker-alt text-blue-500"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-800">Address</h4>
+                                    <p class="text-gray-600">House No. 9, Ward No. 35, Gali No. 2, Lal Chowki, Gayatri Colony, Khandwa (Madhya Pradesh)</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-blue-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-clock text-blue-500"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-800">Opening Hours</h4>
+                                    <p class="text-gray-600">Monday to Sunday: 8:00 AM to 10:00 PM</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-blue-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-phone-alt text-blue-500"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-800">Call Us</h4>
+                                    <a href="tel:+919826099647" class="text-gray-600">+91 98260 99647</a>
+                                    <span class="text-gray-600">|</span>
+                                    <a href="tel:+919827091651" class="text-gray-600">+91 98270 91651</a>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-blue-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-envelope text-blue-500"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-800">Email Us</h4>
+                                    <p class="text-gray-600">contact@shubhamelectronics.com</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2 fade-in" style="animation-delay: 0.2s;">
+                    <div class="bg-gray-50 p-8 rounded-xl shadow-sm">
+                        <h3 class="text-xl font-bold text-gray-800 mb-6">Service Request Form</h3>
+                        <form id="contactForm" class="space-y-4">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Your Name</label>
+                                <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" required>
+                            </div>
+                            
+                            <div>
+                                <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                                <input type="tel" id="phone" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" required>
+                            </div>
+                            
+                            <div>
+                                <label for="device" class="block text-sm font-medium text-gray-700 mb-1">Device/Appliance</label>
+                                <input type="text" id="device" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" required>
+                            </div>
+                            
+                            <div>
+                                <label for="issue" class="block text-sm font-medium text-gray-700 mb-1">Issue Description</label>
+                                <textarea id="issue" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" required></textarea>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <input type="checkbox" id="pickup" class="h-4 w-4 text-blue-500 focus:ring-blue-500 border-gray-300 rounded">
+                                <label for="pickup" class="ml-2 block text-sm text-gray-700">Request home pickup/delivery (₹149)</label>
+                            </div>
+                            
+                            <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-6 rounded-lg shadow-md transition flex items-center justify-center">
+                                <i class="fas fa-paper-plane mr-2"></i> Send Request
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-16 fade-in" style="animation-delay: 0.4s;">
+                <h3 class="text-xl font-bold text-gray-800 mb-6 text-center">Our Location</h3>
+                <div class="map-container">
+                    <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d1108.1906177968806!2d76.33962362078013!3d21.83727184844823!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1744876059376!5m2!1sen!2sin" 
+                    width="100%" 
+                    height="100%" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FAQ Section -->
+    <section id="faq" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
+                <div class="w-20 h-1 bg-blue-500 mx-auto mb-6"></div>
+                <p class="text-gray-600 max-w-2xl mx-auto">Find answers to common questions about our repair services.</p>
+            </div>
+            
+            <div class="max-w-3xl mx-auto space-y-4">
+                <div class="faq-item bg-white p-6 rounded-xl shadow-sm cursor-pointer transition" onclick="toggleFAQ(1)">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold text-gray-800">What types of electrical appliances do you repair?</h3>
+                        <i class="fas fa-chevron-down text-blue-500 transition-transform duration-300" id="faq-icon-1"></i>
+                    </div>
+                    <div class="faq-answer mt-3 text-gray-600 hidden" id="faq-answer-1">
+                        We repair all major home electrical appliances including refrigerators, washing machines, air conditioners, water heaters, microwave ovens, induction cooktops, and more. If you're unsure about your specific appliance, feel free to contact us.
+                    </div>
+                </div>
+                
+                <div class="faq-item bg-white p-6 rounded-xl shadow-sm cursor-pointer transition" onclick="toggleFAQ(2)">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold text-gray-800">How much does the home pickup and delivery service cost?</h3>
+                        <i class="fas fa-chevron-down text-blue-500 transition-transform duration-300" id="faq-icon-2"></i>
+                    </div>
+                    <div class="faq-answer mt-3 text-gray-600 hidden" id="faq-answer-2">
+                        Our home pickup and delivery service is available for a flat charge of ₹149, regardless of the size or type of appliance/device. This fee covers both pickup and return delivery after repairs are completed.
+                    </div>
+                </div>
+                
+                <div class="faq-item bg-white p-6 rounded-xl shadow-sm cursor-pointer transition" onclick="toggleFAQ(3)">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold text-gray-800">How long do repairs typically take?</h3>
+                        <i class="fas fa-chevron-down text-blue-500 transition-transform duration-300" id="faq-icon-3"></i>
+                    </div>
+                    <div class="faq-answer mt-3 text-gray-600 hidden" id="faq-answer-3">
+                        Repair times vary depending on the issue and availability of parts. Most common repairs are completed within 2-3 days. For complex issues or if special parts need to be ordered, it may take up to a week. We'll always provide you with an estimated timeline when you bring in your device.
+                    </div>
+                </div>
+                
+                <div class="faq-item bg-white p-6 rounded-xl shadow-sm cursor-pointer transition" onclick="toggleFAQ(4)">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold text-gray-800">Do you provide warranty on repairs?</h3>
+                        <i class="fas fa-chevron-down text-blue-500 transition-transform duration-300" id="faq-icon-4"></i>
+                    </div>
+                    <div class="faq-answer mt-3 text-gray-600 hidden" id="faq-answer-4">
+                        Yes, we provide a 90-day warranty on all repairs and replaced parts. If the same issue reoccurs within this period, we'll fix it at no additional cost (excluding physical damage or new issues).
+                    </div>
+                </div>
+                
+                <div class="faq-item bg-white p-6 rounded-xl shadow-sm cursor-pointer transition" onclick="toggleFAQ(5)">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold text-gray-800">What payment methods do you accept?</h3>
+                        <i class="fas fa-chevron-down text-blue-500 transition-transform duration-300" id="faq-icon-5"></i>
+                    </div>
+                    <div class="faq-answer mt-3 text-gray-600 hidden" id="faq-answer-5">
+                        We accept cash, UPI payments (PhonePe, Google Pay, PayTM), and debit/credit cards. Payment is due when you collect your repaired device or when we deliver it back to you.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Map Section -->
+    <section class="py-16 px-4">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">Our Location</h2>
+            <div class="map-container slide-up">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3689.123456789012!2d76.3529!3d21.8247!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjHCsDQ5JzI4LjkiTiA3NsKwMjEnMTAuNCJF!5e0!3m2!1sen!2sin!4v1234567890!5m2!1sen!2sin" 
+                    width="100%" 
+                    height="100%" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-tools text-blue-400 text-2xl mr-2"></i>
+                        <span class="text-xl font-bold">Shubham Electronics & Electricals</span>
+                    </div>
+                    <p class="text-gray-400">Trusted repair services in Khandwa since 1997. Quality repairs with honest pricing.</p>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-white transition">Home</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-white transition">About Us</a></li>
+                        <li><a href="#services" class="text-gray-400 hover:text-white transition">Our Services</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white transition">Contact</a></li>
+                        <li><a href="#faq" class="text-gray-400 hover:text-white transition">FAQs</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Contact Info</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex items-center">
+                            <i class="fas fa-map-marker-alt mr-2 text-blue-400"></i>
+                            <span>House No. 9, Ward No. 35, Gali No. 2, Lal Chowki, Gayatri Colony, Khandwa (MP)</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt mr-2 text-blue-400"></i>
+                            <a href="tel:+919826099647">+91 98260 99647</a>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt mr-2 text-blue-400"></i>
+                            <a href="tel:+919827091651">+91 98270 91651</a>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-2 text-blue-400"></i>
+                            <span>electricsupport@gmail.com</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Opening Hours</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex justify-between">
+                            <span>Monday - Sunday</span>
+                            <span>8:00 AM - 10:00 PM</span>
+                        </li>
+                    </ul>
+                    
+                    <div class="mt-4">
+                        <h4 class="font-bold mb-2">Follow Us</h4>
+                        <div class="flex space-x-4">
+                            <a href="#" class="bg-gray-700 hover:bg-blue-600 w-10 h-10 rounded-full flex items-center justify-center transition">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="bg-gray-700 hover:bg-blue-400 w-10 h-10 rounded-full flex items-center justify-center transition">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="bg-gray-700 hover:bg-pink-600 w-10 h-10 rounded-full flex items-center justify-center transition">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-12 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 Shubham Electronics & Electricals. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Mobile menu toggle
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+        
+        // FAQ toggle function
+        function toggleFAQ(num) {
+            const answer = document.getElementById(`faq-answer-${num}`);
+            const icon = document.getElementById(`faq-icon-${num}`);
+            
+            answer.classList.toggle('hidden');
+            icon.classList.toggle('transform');
+            icon.classList.toggle('rotate-180');
+        }
+        
+        // Scroll animations
+        function checkVisibility() {
+            const elements = document.querySelectorAll('.fade-in, .slide-up');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', checkVisibility);
+        window.addEventListener('load', checkVisibility);
+        
+        // Cursor effect
+        const cursor = document.querySelector('.cursor-effect');
+        
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            // Parallax effect for floating elements
+            const tools = document.querySelectorAll('.tool-animation, .circuit-animation');
+            tools.forEach(tool => {
+                const speed = tool.getAttribute('data-speed') || 0.1;
+                const x = (window.innerWidth - e.pageX * speed) / 100;
+                const y = (window.innerHeight - e.pageY * speed) / 100;
+                
+                tool.style.transform = `translateX(${x}px) translateY(${y}px)`;
+            });
+        });
+        
+        // Form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const device = document.getElementById('device').value;
+            const issue = document.getElementById('issue').value;
+            const pickup = document.getElementById('pickup').checked;
+            
+            // Here you would typically send this data to a server
+            // For demo, we'll just show an alert
+            alert(`Thank you, ${name}! Your repair request for ${device} has been received. ${pickup ? 'Our team will contact you shortly to schedule pickup.' : 'You can bring your device to our shop.'}`);
+            
+            // Reset form
+            this.reset();
+        });
+    </script>
+</body>
+</html>
